@@ -15,6 +15,10 @@ namespace UOP1.StateMachine
 		/// </summary>
 		public abstract void OnUpdate();
 
+        public virtual void OnFixedUpdate() { }
+
+        public virtual void OnLateUpdate() { }
+
 		/// <summary>
 		/// Awake is called when creating a new instance. Use this method to cache the components needed for the action.
 		/// </summary>

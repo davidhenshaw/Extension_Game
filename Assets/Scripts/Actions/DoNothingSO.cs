@@ -2,13 +2,13 @@
 using UOP1.StateMachine;
 using UOP1.StateMachine.ScriptableObjects;
 
-[CreateAssetMenu(fileName = "HorizontalMove", menuName = "State Machines/Actions/Horizontal Move")]
-public class HorizontalMoveSO : StateActionSO
+[CreateAssetMenu(fileName = "DoNothing", menuName = "State Machines/Actions/Do Nothing")]
+public class DoNothingSO : StateActionSO
 {
-	protected override StateAction CreateAction() => new HorizontalMove();
+	protected override StateAction CreateAction() => new DoNothing();
 }
 
-public class HorizontalMove : StateAction
+public class DoNothing : StateAction
 {
 	public override void Awake(StateMachine stateMachine)
 	{

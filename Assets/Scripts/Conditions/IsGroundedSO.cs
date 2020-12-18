@@ -10,13 +10,15 @@ public class IsGroundedSO : StateConditionSO
 
 public class IsGrounded : Condition
 {
+    Collider2D groundCollider;
 	public override void Awake(StateMachine stateMachine)
 	{
+        groundCollider = stateMachine.GetComponent<PlayerSensorHandler>().GetGroundCollider();
 	}
 		
 	protected override bool Statement()
 	{
-		return true;
+		return groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
 	}
 	
 	// public override void OnStateEnter()

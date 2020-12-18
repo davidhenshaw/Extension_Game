@@ -67,7 +67,17 @@ namespace UOP1.StateMachine
 			_currentState.OnUpdate();
 		}
 
-		private void Transition(State transitionState)
+        private void FixedUpdate()
+        {
+            _currentState.OnFixedUpdate();
+        }
+
+        private void LateUpdate()
+        {
+            _currentState.OnLateUpdate();
+        }
+
+        private void Transition(State transitionState)
 		{
 			_currentState.OnStateExit();
 			_currentState = transitionState;
