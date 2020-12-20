@@ -10,17 +10,24 @@ public class HorizontalMoveSO : StateActionSO
 
 public class HorizontalMove : StateAction
 {
+    string WALKING = "isWalking";
+
     MoveController moveCtrl;
-    
+    AnimatorController animCtrl;
 	public override void Awake(StateMachine stateMachine)
 	{
         moveCtrl = stateMachine.GetComponent<MoveController>();
+        animCtrl = stateMachine.GetComponent<AnimatorController>();
 	}
+
+    public override void OnStateEnter()
+    {
+        animCtrl.Animator.SetBool(WALKING, true);
+    }
 
     public override void OnUpdate()
     {
-        //Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        //moveCtrl.Move(input);
+
     }
 
     public override void OnFixedUpdate()
@@ -29,12 +36,11 @@ public class HorizontalMove : StateAction
         moveCtrl.Move(input);
     }
 
-    // public override void OnStateEnter()
-    // {
-    // }
+
 
     public override void OnStateExit()
     {
         moveCtrl.KillHorizontalVelocity();
+        animCtrl.Animator.SetBool(WALKING, false);
     }
 }

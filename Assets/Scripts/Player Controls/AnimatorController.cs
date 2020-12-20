@@ -4,34 +4,32 @@ using UnityEngine;
 
 public class AnimatorController : MonoBehaviour
 {
-    Animator animator;
+    Animator _animator;
     [SerializeField]
-    SpriteDirection _spriteDirection = SpriteDirection.Left;
-    private SpriteDirection initDirection;
+    SpriteDirection _spriteDirection;
+
+    SpriteRenderer _spriteRenderer;
+
+    public Animator Animator { get => _animator; }
+
+    //private SpriteDirection initDirection;
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        initDirection = _spriteDirection;
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void ChangeSpriteDirection(SpriteDirection newDir)
     {
-        switch(newDir)
+        if(newDir != _spriteDirection)
         {
-            case SpriteDirection.Left:
-                {
-                    break;
-                }
-
-            case SpriteDirection.Right:
-                {
-                    break;
-                }
+            _spriteRenderer.flipX = !_spriteRenderer.flipX;
+            _spriteDirection = newDir;
         }
     }
 }
 
 public enum SpriteDirection
 {
-    Up = 0, Right = 1, Down = 2, Left = 3
+    Right, Left
 }
