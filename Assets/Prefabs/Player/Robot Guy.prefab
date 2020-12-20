@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1414368786966609719}
   - component: {fileID: 1414368786966609720}
   - component: {fileID: 1414368786966609723}
+  - component: {fileID: 250906893931362506}
   m_Layer: 0
   m_Name: Robot Guy
   m_TagString: Untagged
@@ -138,6 +139,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!70 &250906893931362506
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414368786966609724}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.048595905, y: -0.17278504}
+  m_Size: {x: 0.5971918, y: 1.3455701}
+  m_Direction: 0
 --- !u!1 &1414368788058690144
 GameObject:
   m_ObjectHideFlags: 0
