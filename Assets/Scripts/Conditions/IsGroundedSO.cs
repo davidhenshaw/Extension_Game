@@ -11,6 +11,8 @@ public class IsGroundedSO : StateConditionSO
 public class IsGrounded : Condition
 {
     Collider2D groundCollider;
+    int jumpableLayers = LayerMask.GetMask("Ground"); //The layers that the player can jump from
+
 	public override void Awake(StateMachine stateMachine)
 	{
         groundCollider = stateMachine.GetComponent<PlayerSensorHandler>().GetGroundCollider();
@@ -18,7 +20,7 @@ public class IsGrounded : Condition
 		
 	protected override bool Statement()
 	{
-		return groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+		return groundCollider.IsTouchingLayers(jumpableLayers);
 	}
 	
 	// public override void OnStateEnter()
