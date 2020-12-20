@@ -11,7 +11,7 @@ public class IsWalkingSO : StateConditionSO
 public class IsWalking : Condition
 {
     MoveController moveCtrl;
-    float _minVelocity = 0.09f;
+    float _minVelocity = 0.1f;
 	public override void Awake(StateMachine stateMachine)
 	{
         moveCtrl = stateMachine.GetComponent<MoveController>();
@@ -20,10 +20,10 @@ public class IsWalking : Condition
 	protected override bool Statement()
 	{
         float xVel = Mathf.Abs(moveCtrl.GetVelocity().x);
-        Debug.Log(xVel);
+        float inputAxis = Mathf.Abs(Input.GetAxisRaw("Horizontal"));
 
         //return true;
-		return xVel > _minVelocity;
+        return (xVel > _minVelocity) && (inputAxis > Mathf.Epsilon);
 	}
 	
 	// public override void OnStateEnter()

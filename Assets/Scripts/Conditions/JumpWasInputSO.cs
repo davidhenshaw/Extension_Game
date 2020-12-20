@@ -16,7 +16,7 @@ public class JumpWasInput : Condition
 		
 	protected override bool Statement()
 	{
-		return true;
+        return Input.GetButtonDown("Jump");
 	}
 	
 	// public override void OnStateEnter()

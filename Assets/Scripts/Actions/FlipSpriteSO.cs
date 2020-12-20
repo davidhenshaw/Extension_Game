@@ -12,7 +12,7 @@ public class FlipSprite : StateAction
 {
     MoveController moveCtrl;
     AnimatorController animCtrl;
-    float prevVel = 0;
+    float threshold = 0.3f;
 
 	public override void Awake(StateMachine stateMachine)
 	{
@@ -22,18 +22,15 @@ public class FlipSprite : StateAction
 		
 	public override void OnUpdate()
 	{
-        float currVel = moveCtrl.GetVelocity().x;
-        if ( currVel > 0 && prevVel <= 0 ) // Starting to move right
+        if ( Input.GetAxisRaw("Horizontal") > Mathf.Epsilon) // Starting to move right
         {
             animCtrl.ChangeSpriteDirection(SpriteDirection.Right);
         }
 
-        if( currVel < 0 && prevVel >= 0)
+        if(Input.GetAxisRaw("Horizontal") < -Mathf.Epsilon)
         {
             animCtrl.ChangeSpriteDirection(SpriteDirection.Left);
         }
-
-        prevVel = currVel;
 	}
 	
 	// public override void OnStateEnter()

@@ -9,10 +9,10 @@ public class MoveController : MonoBehaviour
 
     [SerializeField] float _groundAccel = 3f;
     [SerializeField] float _groundDecel = -4f;
+    [Space]
 
     [SerializeField] float _maxVelocity = 5f;
     
-    Vector2 currVelocity = Vector2.zero;
     Rigidbody2D _myRigidbody;
 
     private void Awake()
@@ -23,35 +23,46 @@ public class MoveController : MonoBehaviour
     public void Move(Vector2 inputAxis)
     {
         float dxSpeed = 0; // the change in xSpeed this frame
+        Vector2 vel = _myRigidbody.velocity;
         //Horizontal Movement
-        if(Mathf.Abs(inputAxis.x) > inputDeadZone)
+        if (Mathf.Abs(inputAxis.x) > inputDeadZone)
         {
             dxSpeed = _groundAccel * Time.deltaTime * Mathf.Sign(inputAxis.x);
         }
         else
         {
             //apply speed in the opposite direction of the current velocity
-            dxSpeed = _groundDecel * Time.deltaTime * Mathf.Sign(currVelocity.x);
+            dxSpeed = _groundDecel * Time.deltaTime * Mathf.Sign(vel.x);
         }
 
         // add the deceleration to the dxSpeed if trying to turn around
-        if( Mathf.Sign(inputAxis.x) != Mathf.Sign(currVelocity.x))
+        if( Mathf.Sign(inputAxis.x) * Mathf.Sign(vel.x) == -1)
         {
-            dxSpeed += _groundDecel * Time.deltaTime * Mathf.Sign(currVelocity.x);
+            dxSpeed += _groundDecel * Time.deltaTime * Mathf.Sign(vel.x);
         }
 
-        currVelocity.x = Mathf.Clamp( currVelocity.x + dxSpeed, -1*_maxVelocity, _maxVelocity );
+        vel.x = Mathf.Clamp( vel.x + dxSpeed, -1*_maxVelocity, _maxVelocity );
         
         //Vertical Movement
-        currVelocity.y = _myRigidbody.velocity.y;
+        //vel.y = _myRigidbody.velocity.y;
 
         // Do movement
-        _myRigidbody.velocity = currVelocity;
+        _myRigidbody.velocity = vel;
+    }
+
+    public void ApplyForce(Vector2 jump)
+    {
+        _myRigidbody.AddForce(jump, ForceMode2D.Impulse);
     }
 
     public void KillHorizontalVelocity()
     {
-        _myRigidbody.velocity = new Vector2(0, _myRigidbody.velocity.y);
+        //_myRigidbody.velocity = new Vector2(0, _myRigidbody.velocity.y);
+    }
+
+    public void KillVerticalVelocity()
+    {
+        _myRigidbody.velocity = new Vector2(_myRigidbody.velocity.x, 0);
     }
 
     public Vector2 GetVelocity()

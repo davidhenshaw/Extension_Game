@@ -36,11 +36,9 @@ public class HorizontalMove : StateAction
         moveCtrl.Move(input);
     }
 
-
-
     public override void OnStateExit()
     {
-        moveCtrl.KillHorizontalVelocity();
+        //moveCtrl.KillHorizontalVelocity();
         animCtrl.Animator.SetBool(WALKING, false);
     }
 }

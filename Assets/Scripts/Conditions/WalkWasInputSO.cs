@@ -17,7 +17,7 @@ public class WalkWasInput : Condition
 		
 	protected override bool Statement()
 	{
-        return Mathf.Abs(Input.GetAxis("Horizontal")) > deadZone;
+        return Mathf.Abs(Input.GetAxisRaw("Horizontal")) > deadZone;
 	}
 	
 	// public override void OnStateEnter()
