@@ -128,11 +128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 504113029367166566, guid: 202f9bb383c8fb54ca880df22764a2d3,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 529398391993912678, guid: 202f9bb383c8fb54ca880df22764a2d3,
         type: 3}
       propertyPath: m_Name
@@ -10410,7 +10405,7 @@ GameObject:
   - component: {fileID: 1464974403}
   - component: {fileID: 1464974402}
   - component: {fileID: 1464974401}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Power Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}

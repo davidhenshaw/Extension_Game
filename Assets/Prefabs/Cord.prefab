@@ -133,8 +133,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.26070023
+        time: 0.007221222
+        value: 0.1828804
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -199,7 +199,8 @@ MonoBehaviour:
   plugPrefab: {fileID: 3639432505852102934, guid: 52e6835a4111da74a9befc562bd3636a,
     type: 3}
   chainSpacing: 0.3
-  numLinks: 9
+  ejectionForce: 300
+  numLinks: 12
 --- !u!50 &1987583176085727474
 Rigidbody2D:
   serializedVersion: 4
@@ -208,7 +209,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3569785988999038342}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

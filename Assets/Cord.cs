@@ -17,7 +17,12 @@ public class Cord : MonoBehaviour
     [SerializeField]
     float chainSpacing = 0.6f;
 
+    [Space]
+    [SerializeField] float ejectionForce = 10;
     public int numLinks = 6;
+
+    private bool _isRetracted = false;
+    public bool IsRetracted { get => _isRetracted; }
 
     LineRenderer _line;
     Transform[] _links;
@@ -38,6 +43,63 @@ public class Cord : MonoBehaviour
     void Update()
     {
         UpdateLineRenderer();
+    }
+
+    [ContextMenu("Retract")]
+    public void Retract()
+    {
+        Rigidbody2D[] rigidBodies = GetComponentsInChildren<Rigidbody2D>();
+        Rigidbody2D myRigidBody = GetComponent<Rigidbody2D>();
+
+        DisconnectPlug();
+
+        foreach(Rigidbody2D rb in rigidBodies)
+        {
+            if (rb == myRigidBody) //Ignore the parent's rigidbody
+                continue;
+
+            rb.isKinematic = true;
+            rb.simulated = false;
+            rb.transform.localPosition = Vector3.zero;
+        }
+
+        _isRetracted = true;
+    }
+
+    [ContextMenu("Release")]
+    public void Release()
+    {
+        Rigidbody2D[] rigidBodies = GetComponentsInChildren<Rigidbody2D>();
+        Rigidbody2D myRigidBody = GetComponent<Rigidbody2D>();
+
+        foreach (Rigidbody2D rb in rigidBodies)
+        {
+            if (rb == myRigidBody) //Ignore the parent's rigidbody
+                continue;
+
+            rb.isKinematic = false;
+            rb.simulated = true;
+        }
+
+        _isRetracted = false;
+    }
+
+    [ContextMenu("Eject Plug")]
+    public void EjectPlug(/*Vector2 dir*/)
+    {
+        Vector2 dir = Vector2.right;
+        if (_isRetracted)
+            Release();
+
+        Rigidbody2D plugRB = GetComponentInChildren<Plug>().GetComponent<Rigidbody2D>();
+
+        plugRB.AddForce(dir * ejectionForce, ForceMode2D.Impulse);
+    }
+
+    private void DisconnectPlug()
+    {
+        Plug p = GetComponentInChildren<Plug>();
+        p.Disconnect();
     }
 
     void UpdateLineRenderer()
@@ -94,5 +156,7 @@ public class Cord : MonoBehaviour
             _links[i+1] = link.transform;
         }
     }
+
+
 
 }

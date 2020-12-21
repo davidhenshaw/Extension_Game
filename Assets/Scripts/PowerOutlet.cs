@@ -7,7 +7,7 @@ public class PowerOutlet : MonoBehaviour
 {
     Rigidbody2D _myRigidbody;
     HingeJoint2D joint;
-
+    Plug connectedPlug;
     [SerializeField] Transform connectionPoint;
 
     private void Awake()
@@ -17,20 +17,20 @@ public class PowerOutlet : MonoBehaviour
         if (connectionPoint == null)
             connectionPoint = transform;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
+    public void Connect(Plug plug)
     {
-        
-    }
+        if (connectedPlug != null)
+            return;
+        else
+        {
+            connectedPlug = plug;
+            plug.connectedOutlet = this;
+        }
 
-    public void ConnectCordEnd(Rigidbody2D endRB)
-    {
+
+        Rigidbody2D endRB = plug.GetComponent<Rigidbody2D>();
+
         joint = gameObject.AddComponent<HingeJoint2D>();
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedBody = endRB;
@@ -38,13 +38,10 @@ public class PowerOutlet : MonoBehaviour
         joint.connectedAnchor = connectionPoint.localPosition;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Disconnect()
     {
-        Plug plug = collision.GetComponentInParent<Plug>();
-
-        if(plug != null)
-        {
-            ConnectCordEnd(plug.GetComponent<Rigidbody2D>());
-        }
+        Destroy(joint);
+        connectedPlug = null;
     }
+
 }

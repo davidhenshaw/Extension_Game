@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Plug : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public PowerOutlet connectedOutlet;
+    bool canConnect = true;
+
+    public void Disconnect()
     {
-        
+        if(connectedOutlet != null)
+        {
+            connectedOutlet.Disconnect();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        PowerOutlet outlet = collision.GetComponentInParent<PowerOutlet>();
+        if (outlet != null)
+        {
+            outlet.Connect(this);
+        }
     }
+
 }
