@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: YVelocityLessThanZero
-  m_EditorClassIdentifier: Assembly-CSharp::YVelocityLessThanSO
+  m_Script: {fileID: 11500000, guid: 85c3e278f75c0ae47806aad8aec9f625, type: 3}
+  m_Name: YVelocityLessThan
+  m_EditorClassIdentifier: 
   cacheResult: 1
   threshold: 0
