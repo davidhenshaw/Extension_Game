@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: YVelocityLessThanZero
+  m_Name: YVelocityLessThan
   m_EditorClassIdentifier: Assembly-CSharp::YVelocityLessThanSO
   cacheResult: 1
   threshold: 0

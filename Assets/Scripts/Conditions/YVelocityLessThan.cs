@@ -15,6 +15,11 @@ public class YVelocityLessThan : Condition
     float threshold;
     MoveController moveCtrl;
 
+    public YVelocityLessThan()
+    {
+
+    }
+
     public YVelocityLessThan(float v)
     {
         threshold = v;
