@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LineRenderer))]
 public class Cord : MonoBehaviour
 {
     [SerializeField]
@@ -14,7 +15,7 @@ public class Cord : MonoBehaviour
 
     [Space]
     [SerializeField]
-    float distanceFromChainEnd = 0.6f;
+    float chainSpacing = 0.6f;
 
     public int numLinks = 6;
 
@@ -73,18 +74,22 @@ public class Cord : MonoBehaviour
 
         for (int i = 0; i < numLinks; i++)
         {
-            GameObject link = Instantiate(linkPrefab, transform);
-            HingeJoint2D joint = link.GetComponent<HingeJoint2D>();
-            joint.connectedBody = previousRB;
-
-            if (i < numLinks - 1)
+            GameObject link = null;
+            //HingeJoint2D joint = link.GetComponent<HingeJoint2D>();
+            //joint.connectedBody = previousRB;
+            if(i < numLinks - 1)
             {
-                previousRB = link.GetComponent<Rigidbody2D>();
+                link = Instantiate(linkPrefab, transform);
             }
             else
             {
-                //ConnectRopeEnd(link.GetComponent<Rigidbody2D>());
+                link = Instantiate(plugPrefab, transform);
             }
+
+            HingeJoint2D joint = link.GetComponent<HingeJoint2D>();
+            joint.connectedBody = previousRB;
+            joint.connectedAnchor = new Vector2(0f, -chainSpacing);
+            previousRB = link.GetComponent<Rigidbody2D>();
 
             _links[i+1] = link.transform;
         }
