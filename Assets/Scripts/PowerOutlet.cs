@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(HingeJoint2D))]
 public class PowerOutlet : MonoBehaviour
 {
     Rigidbody2D _myRigidbody;
@@ -14,7 +13,6 @@ public class PowerOutlet : MonoBehaviour
     private void Awake()
     {
         _myRigidbody = GetComponent<Rigidbody2D>();
-        joint = GetComponent<HingeJoint2D>();
 
         if (connectionPoint == null)
             connectionPoint = transform;
@@ -33,6 +31,7 @@ public class PowerOutlet : MonoBehaviour
 
     public void ConnectCordEnd(Rigidbody2D endRB)
     {
+        joint = gameObject.AddComponent<HingeJoint2D>();
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedBody = endRB;
         joint.anchor = Vector2.zero;
