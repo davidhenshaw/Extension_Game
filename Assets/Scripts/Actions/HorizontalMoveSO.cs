@@ -10,8 +10,6 @@ public class HorizontalMoveSO : StateActionSO
 
 public class HorizontalMove : StateAction
 {
-    string WALKING = "isWalking";
-
     MoveController moveCtrl;
     AnimatorController animCtrl;
 	public override void Awake(StateMachine stateMachine)
@@ -22,7 +20,7 @@ public class HorizontalMove : StateAction
 
     public override void OnStateEnter()
     {
-        animCtrl.Animator.SetBool(WALKING, true);
+        animCtrl.Animator.SetBool(animCtrl.WALKING_BOOL, true);
     }
 
     public override void OnUpdate()
@@ -39,6 +37,6 @@ public class HorizontalMove : StateAction
     public override void OnStateExit()
     {
         //moveCtrl.KillHorizontalVelocity();
-        animCtrl.Animator.SetBool(WALKING, false);
+        animCtrl.Animator.SetBool(animCtrl.WALKING_BOOL, false);
     }
 }
