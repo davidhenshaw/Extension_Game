@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1414368786966609720}
   - component: {fileID: 1414368786966609723}
   - component: {fileID: 250906893931362506}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Robot Guy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,9 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a980ff45a3858b34a9f166972b82dee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundAccel: 10
-  _groundDecel: -12
-  _maxVelocity: 5
 --- !u!114 &1414368786966609718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,17 +823,17 @@ PrefabInstance:
     - target: {fileID: 4266185426089224178, guid: 9e820dcf5d07a784fb620dc02709d36e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.784501
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4266185426089224178, guid: 9e820dcf5d07a784fb620dc02709d36e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9547374
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 4266185426089224178, guid: 9e820dcf5d07a784fb620dc02709d36e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.839065
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4266185426089224178, guid: 9e820dcf5d07a784fb620dc02709d36e,
         type: 3}
