@@ -7,7 +7,7 @@ public class YVelocityLessThanSO : StateConditionSO
 {
     [SerializeField] float threshold;
 
-	protected override Condition CreateCondition() => new YVelocityLessThan(threshold);
+    protected override Condition CreateCondition() => new YVelocityLessThan(threshold);
 }
 
 public class YVelocityLessThan : Condition
@@ -25,21 +25,21 @@ public class YVelocityLessThan : Condition
         threshold = v;
     }
 
-	public override void Awake(StateMachine stateMachine)
-	{
+    public override void Awake(StateMachine stateMachine)
+    {
         moveCtrl = stateMachine.GetComponent<MoveController>();
-	}
-		
-	protected override bool Statement()
-	{
-		return moveCtrl.GetVelocity().y < threshold;
-	}
-	
-	// public override void OnStateEnter()
-	// {
-	// }
-	
-	// public override void OnStateExit()
-	// {
-	// }
+    }
+
+    protected override bool Statement()
+    {
+        return moveCtrl.GetVelocity().y < threshold;
+    }
+
+    // public override void OnStateEnter()
+    // {
+    // }
+
+    // public override void OnStateExit()
+    // {
+    // }
 }

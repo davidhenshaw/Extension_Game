@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AnimatorController : MonoBehaviour
 {
+    public readonly string WALKING_BOOL = "isWalking";
+
     Animator _animator;
     [SerializeField]
     SpriteDirection _spriteDirection;

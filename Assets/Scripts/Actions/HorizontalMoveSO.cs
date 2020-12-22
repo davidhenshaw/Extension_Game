@@ -5,15 +5,33 @@ using UOP1.StateMachine.ScriptableObjects;
 [CreateAssetMenu(fileName = "HorizontalMove", menuName = "State Machines/Actions/Horizontal Move")]
 public class HorizontalMoveSO : StateActionSO
 {
-	protected override StateAction CreateAction() => new HorizontalMove();
+    [SerializeField] float _acceleration;
+    [SerializeField] float _deceleration;
+    [SerializeField] float _maxVel;
+
+    protected override StateAction CreateAction()
+    {
+        MovementInfo mInfo = new MovementInfo() {
+            acceleration = _acceleration,
+            deceleration = _deceleration,
+            maxVelocity = _maxVel
+        };
+
+        return new HorizontalMove(mInfo);
+    }
 }
 
 public class HorizontalMove : StateAction
 {
-    string WALKING = "isWalking";
-
     MoveController moveCtrl;
     AnimatorController animCtrl;
+    MovementInfo _movementInfo;
+
+    public HorizontalMove(MovementInfo mInfo)
+    {
+        _movementInfo = mInfo;
+    }
+
 	public override void Awake(StateMachine stateMachine)
 	{
         moveCtrl = stateMachine.GetComponent<MoveController>();
@@ -22,7 +40,7 @@ public class HorizontalMove : StateAction
 
     public override void OnStateEnter()
     {
-        animCtrl.Animator.SetBool(WALKING, true);
+        animCtrl.Animator.SetBool(animCtrl.WALKING_BOOL, true);
     }
 
     public override void OnUpdate()
@@ -33,12 +51,12 @@ public class HorizontalMove : StateAction
     public override void OnFixedUpdate()
 	{
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveCtrl.Move(input);
+        moveCtrl.Move(input, _movementInfo);
     }
 
     public override void OnStateExit()
     {
         //moveCtrl.KillHorizontalVelocity();
-        animCtrl.Animator.SetBool(WALKING, false);
+        animCtrl.Animator.SetBool(animCtrl.WALKING_BOOL, false);
     }
 }
