@@ -5,26 +5,39 @@ using UOP1.StateMachine.ScriptableObjects;
 [CreateAssetMenu(fileName = "ApplyJumpVector", menuName = "State Machines/Actions/Apply Jump Vector")]
 public class ApplyJumpVectorSO : StateActionSO
 {
-	protected override StateAction CreateAction() => new ApplyJumpVector();
+    [SerializeField] float _jumpForce;
+    [SerializeField] [Range(0,1)] float _jumpDamp;
+	protected override StateAction CreateAction() => new ApplyJumpVector(_jumpForce, _jumpDamp);
 }
 
 public class ApplyJumpVector : StateAction
 {
-    public ApplyJumpVector() : base()
-    {
-        
-    }
-
     Vector2 jump;
     MoveController moveCtrl;
+    float dampFactor;
+
+    public ApplyJumpVector(float jumpForce, float jumpDamp) : base()
+    {
+        jump = new Vector2(0, jumpForce);
+        dampFactor = jumpDamp;
+    }
+
+
 	public override void Awake(StateMachine stateMachine)
 	{
         moveCtrl = stateMachine.GetComponent<MoveController>();
-        jump = new Vector2(0, 5);
 	}
 		
 	public override void OnUpdate()
 	{
+        if(Input.GetButtonUp("Jump"))
+        {
+            //dampen vertical velocity
+            Vector2 newVel = moveCtrl.GetVelocity();
+            newVel.y = newVel.y * dampFactor;
+
+            moveCtrl.SetVelocity(newVel);
+        }
 	}
 
     public override void OnStateEnter()
