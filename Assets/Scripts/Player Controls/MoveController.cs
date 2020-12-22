@@ -6,13 +6,6 @@ using UnityEngine;
 public class MoveController : MonoBehaviour
 {
     public readonly float inputDeadZone = 0.05f;
-
-    [SerializeField] float _groundAccel = 3f;
-    [SerializeField] float _groundDecel = -4f;
-    [Space]
-
-    [SerializeField] float _maxVelocity = 5f;
-    
     Rigidbody2D _myRigidbody;
 
     private void Awake()
@@ -20,28 +13,28 @@ public class MoveController : MonoBehaviour
         _myRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    public void Move(Vector2 inputAxis)
+    public void Move(Vector2 inputAxis, MovementInfo mInfo)
     {
         float dxSpeed = 0; // the change in xSpeed this frame
         Vector2 vel = _myRigidbody.velocity;
         //Horizontal Movement
         if (Mathf.Abs(inputAxis.x) > inputDeadZone)
         {
-            dxSpeed = _groundAccel * Time.deltaTime * Mathf.Sign(inputAxis.x);
+            dxSpeed = mInfo.acceleration * Time.deltaTime * Mathf.Sign(inputAxis.x);
         }
         else
         {
             //apply speed in the opposite direction of the current velocity
-            dxSpeed = _groundDecel * Time.deltaTime * Mathf.Sign(vel.x);
+            dxSpeed = mInfo.deceleration * Time.deltaTime * Mathf.Sign(vel.x);
         }
 
         // add the deceleration to the dxSpeed if trying to turn around
         if( Mathf.Sign(inputAxis.x) * Mathf.Sign(vel.x) == -1)
         {
-            dxSpeed += _groundDecel * Time.deltaTime * Mathf.Sign(vel.x);
+            dxSpeed += mInfo.deceleration * Time.deltaTime * Mathf.Sign(vel.x);
         }
 
-        vel.x = Mathf.Clamp( vel.x + dxSpeed, -1*_maxVelocity, _maxVelocity );
+        vel.x = Mathf.Clamp( vel.x + dxSpeed, -1*mInfo.maxVelocity, mInfo.maxVelocity );
         
         //Vertical Movement
         //vel.y = _myRigidbody.velocity.y;
@@ -70,4 +63,16 @@ public class MoveController : MonoBehaviour
         return _myRigidbody.velocity;
         //return currVelocity;
     }
+
+    public void SetVelocity(Vector2 value)
+    {
+        _myRigidbody.velocity = value;
+    }
+}
+
+public struct MovementInfo
+{
+    public float acceleration;
+    public float deceleration;
+    public float maxVelocity;
 }
