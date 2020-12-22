@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c271b5519b2380c4dade18aa772fdb4a, type: 3}
   m_Name: ApplyJumpVector
   m_EditorClassIdentifier: 
+  _jumpForce: 7
+  _jumpDamp: 0.714

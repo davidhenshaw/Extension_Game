@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7b428fe2ffd15408a26617b3b849ec, type: 3}
   m_Name: HorizontalAirMove
   m_EditorClassIdentifier: 
-  _acceleration: 0
+  _acceleration: 3
   _deceleration: 0
-  _maxVel: 0
+  _maxVel: 6
