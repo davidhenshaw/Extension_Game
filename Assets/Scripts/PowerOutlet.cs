@@ -6,7 +6,7 @@ using UnityEngine;
 public class PowerOutlet : MonoBehaviour
 {
     Rigidbody2D _myRigidbody;
-    HingeJoint2D joint;
+    FixedJoint2D joint;
     Plug connectedPlug;
     [SerializeField] Transform connectionPoint;
 
@@ -31,11 +31,11 @@ public class PowerOutlet : MonoBehaviour
 
         Rigidbody2D endRB = plug.GetComponent<Rigidbody2D>();
 
-        joint = gameObject.AddComponent<HingeJoint2D>();
+        joint = gameObject.AddComponent<FixedJoint2D>();
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedBody = endRB;
-        joint.anchor = Vector2.zero;
-        joint.connectedAnchor = connectionPoint.localPosition;
+        joint.anchor = connectionPoint.localPosition;
+        joint.connectedAnchor = Vector2.zero;
     }
 
     public void Disconnect()
