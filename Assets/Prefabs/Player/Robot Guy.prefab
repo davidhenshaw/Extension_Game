@@ -73,7 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194901389eb92cf4da268d822e425dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cord: {fileID: 1001705918672162476}
+  _cord: {fileID: 1001705918672162476}
+  _cordLength: 5.8
 --- !u!114 &1414368786966609721
 MonoBehaviour:
   m_ObjectHideFlags: 0
