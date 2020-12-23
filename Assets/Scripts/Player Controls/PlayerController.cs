@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Cord _cord;
     [SerializeField] float _cordLength;
     Vector2 aimDir;
+    DistanceJoint2D joint;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,10 @@ public class PlayerController : MonoBehaviour
 
     void CreateJoint(Rigidbody2D rb)
     {
-        DistanceJoint2D joint = gameObject.AddComponent<DistanceJoint2D>();
+        if (joint != null)
+            return;
+
+        joint = gameObject.AddComponent<DistanceJoint2D>();
         joint.autoConfigureDistance = false;
         joint.connectedBody = rb;
 
@@ -51,7 +55,10 @@ public class PlayerController : MonoBehaviour
 
     void DestroyJoint(Rigidbody2D rb)
     {
-        DistanceJoint2D joint = gameObject.GetComponent<DistanceJoint2D>();
+        if (joint == null)
+            return;
+
+        joint = gameObject.GetComponent<DistanceJoint2D>();
         Destroy(joint);
     }
 
