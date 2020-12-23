@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,23 +21,40 @@ public class Cord : MonoBehaviour
     [Space]
     [SerializeField] float ejectionForce = 10;
     public int numLinks = 6;
+    [Space]
+    [SerializeField] float resetLinkTime = 0.3f;
 
     private bool _isRetracted = false;
     public bool IsRetracted { get => _isRetracted; }
+    Plug _plug;
+    public Plug Plug { get => _plug; }
 
     LineRenderer _line;
     Transform[] _links;
+
 
     private void Awake()
     {
         _line = GetComponent<LineRenderer>();
         _links = GetComponentsInChildren<Transform>();
+        GenerateCord();
+    }
+
+    private void OnEnable()
+    {
+        _plug = GetComponentInChildren<Plug>();        
+    }
+
+    private void OnDisable()
+    {
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GenerateCord();
+
+        //GenerateCord();
     }
 
     // Update is called once per frame
@@ -85,15 +103,68 @@ public class Cord : MonoBehaviour
     }
 
     [ContextMenu("Eject Plug")]
-    public void EjectPlug(/*Vector2 dir*/)
+    public void EjectPlug(Vector2 dir)
     {
-        Vector2 dir = Vector2.right;
+        //Vector2 dir = Vector2.right;
         if (_isRetracted)
             Release();
 
-        Rigidbody2D plugRB = GetComponentInChildren<Plug>().GetComponent<Rigidbody2D>();
+        Rigidbody2D plugRb = GetComponentInChildren<Plug>().GetComponent<Rigidbody2D>();
 
-        plugRB.AddForce(dir * ejectionForce, ForceMode2D.Impulse);
+        FixLinkRotation(dir);
+
+
+        StartCoroutine(ResetLinkAngles_co(resetLinkTime));
+        StartCoroutine(AddForceToPlug_co(plugRb, dir, ejectionForce, resetLinkTime));
+        //plugRB.AddForce(dir * ejectionForce, ForceMode2D.Impulse);
+    }
+
+    public bool IsPlugged()
+    {
+        return GetComponentInChildren<Plug>().IsConnected();
+    }
+
+    void FixLinkRotation(Vector2 dir)
+    {
+        float angle = Vector2.SignedAngle(Vector2.down, dir);
+        Rigidbody2D[] rigidBodies = GetComponentsInChildren<Rigidbody2D>();
+        Rigidbody2D myRigidBody = GetComponent<Rigidbody2D>();
+
+        foreach (Rigidbody2D rb in rigidBodies)
+        {
+            if (rb == myRigidBody) //Ignore the parent's rigidbody
+                continue;
+
+            rb.transform.rotation = Quaternion.Euler(0,0,angle);
+            rb.freezeRotation = true;
+        }
+    }
+
+    void ResetLinkAngles()
+    {
+        Rigidbody2D[] rigidBodies = GetComponentsInChildren<Rigidbody2D>();
+        Rigidbody2D myRigidBody = GetComponent<Rigidbody2D>();
+
+        foreach (Rigidbody2D rb in rigidBodies)
+        {
+            if (rb == myRigidBody) //Ignore the parent's rigidbody
+                continue;
+
+            rb.freezeRotation = false;
+        }
+    }
+
+    IEnumerator AddForceToPlug_co(Rigidbody2D rb, Vector2 dir, float force, float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        rb.AddForce(dir * force, ForceMode2D.Impulse);
+    }
+
+    IEnumerator ResetLinkAngles_co(float time)
+    {
+        yield return new WaitForSeconds(time);
+        ResetLinkAngles();
     }
 
     private void DisconnectPlug()
