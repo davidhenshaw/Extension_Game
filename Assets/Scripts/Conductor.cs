@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Conductor : MonoBehaviour
+public abstract class Conductor : MonoBehaviour
 {
     IPowerSource _source;
     IPowerSink _sink;
@@ -12,14 +12,20 @@ public class Conductor : MonoBehaviour
         _sink = GetComponentInParent<IPowerSink>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void Connect(IPowerSource ps)
     {
-        _source = collision.GetComponentInChildren<IPowerSource>();
+        _source = ps;
 
-        if(_source != null)
+        _source.OnConnect(_sink);
+        _sink.OnConnect(_source);
+    }
+
+    public virtual void Disconnect()
+    {
+        if (_source != null)
         {
-            _source.OnConnect(_sink);
-            _sink.OnConnect(_source);
+            _source.OnDisconnect(_sink);
+            _sink.OnDisconnect(_source);
         }
     }
 }

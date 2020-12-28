@@ -111,10 +111,10 @@ public class Cord : MonoBehaviour
 
         Rigidbody2D plugRb = GetComponentInChildren<Plug>().GetComponent<Rigidbody2D>();
 
-        FixLinkRotation(dir);
+        LockLinkRotations(dir);
 
 
-        StartCoroutine(ResetLinkAngles_co(resetLinkTime));
+        StartCoroutine(ReleaseLinks_co(resetLinkTime));
         StartCoroutine(AddForceToPlug_co(plugRb, dir, ejectionForce, resetLinkTime));
         //plugRB.AddForce(dir * ejectionForce, ForceMode2D.Impulse);
     }
@@ -124,7 +124,7 @@ public class Cord : MonoBehaviour
         return GetComponentInChildren<Plug>().IsConnected();
     }
 
-    void FixLinkRotation(Vector2 dir)
+    void LockLinkRotations(Vector2 dir)
     {
         float angle = Vector2.SignedAngle(Vector2.down, dir);
         Rigidbody2D[] rigidBodies = GetComponentsInChildren<Rigidbody2D>();
@@ -140,7 +140,7 @@ public class Cord : MonoBehaviour
         }
     }
 
-    void ResetLinkAngles()
+    void ReleaseLinkRotations()
     {
         Rigidbody2D[] rigidBodies = GetComponentsInChildren<Rigidbody2D>();
         Rigidbody2D myRigidBody = GetComponent<Rigidbody2D>();
@@ -161,10 +161,10 @@ public class Cord : MonoBehaviour
         rb.AddForce(dir * force, ForceMode2D.Impulse);
     }
 
-    IEnumerator ResetLinkAngles_co(float time)
+    IEnumerator ReleaseLinks_co(float time)
     {
         yield return new WaitForSeconds(time);
-        ResetLinkAngles();
+        ReleaseLinkRotations();
     }
 
     private void DisconnectPlug()
