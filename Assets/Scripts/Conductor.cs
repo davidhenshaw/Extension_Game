@@ -38,7 +38,7 @@ public interface IPowerSink
 
 public interface IPowerSource
 {
-    float GetCharge(float requested);
+    float RequestCharge(float requested);
     void OnConnect(IPowerSink sink);
     void OnDisconnect(IPowerSink sink);
 }

@@ -6,7 +6,7 @@ public class PowerSource : MonoBehaviour, IPowerSource
 {
     [SerializeField] float _chargeRate;
 
-    public float GetCharge(float requested)
+    public float RequestCharge(float requested)
     {
         return Mathf.Clamp(requested, 0, _chargeRate * Time.deltaTime);
     }
