@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         aimDir = new Vector2(1, 1);
-        _cord.Plug.connected += CreateJoint;
+        _cord.Plug.pluggedIn += CreateJoint;
         _cord.Plug.disconnected += DestroyJoint;
     }
 
@@ -29,13 +29,13 @@ public class PlayerController : MonoBehaviour
         if (_cord.Plug == null)
             return;
 
-        _cord.Plug.connected += CreateJoint;
+        _cord.Plug.pluggedIn += CreateJoint;
         _cord.Plug.disconnected += DestroyJoint;
     }
 
     private void OnDisable()
     {
-        _cord.Plug.connected -= CreateJoint;
+        _cord.Plug.pluggedIn -= CreateJoint;
         _cord.Plug.disconnected -= DestroyJoint;
     }
 
