@@ -13,11 +13,11 @@ public class PowerSource : MonoBehaviour, IPowerSource
 
     public void OnConnect(IPowerSink sink)
     {
-        Debug.Log(sink.ToString() + " connected");
+        //Debug.Log(sink.ToString() + " connected");
     }
 
     public void OnDisconnect(IPowerSink sink)
     {
-        Debug.Log(sink.ToString() + " disconnected");
+        //Debug.Log(sink.ToString() + " disconnected");
     }
 }
