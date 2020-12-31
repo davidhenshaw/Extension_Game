@@ -170,7 +170,7 @@ public class Cord : MonoBehaviour
     private void DisconnectPlug()
     {
         Plug p = GetComponentInChildren<Plug>();
-        p.Disconnect();
+        p.DisconnectOutlet();
     }
 
     void UpdateLineRenderer()

@@ -4,15 +4,10 @@ using UnityEngine;
 
 public abstract class Conductor : MonoBehaviour
 {
-    IPowerSource _source;
-    IPowerSink _sink;
+    protected IPowerSource _source;
+    protected IPowerSink _sink;
 
-    private void Start()
-    {
-        _sink = GetComponentInParent<IPowerSink>();
-    }
-
-    public virtual void Connect(IPowerSource ps)
+    public virtual void ConnectSourceToSink(IPowerSource ps)
     {
         _source = ps;
 
@@ -20,7 +15,7 @@ public abstract class Conductor : MonoBehaviour
         _sink.OnConnect(_source);
     }
 
-    public virtual void Disconnect()
+    public virtual void DisconnectOutlet()
     {
         if (_source != null)
         {

@@ -7,9 +7,18 @@ public class Battery : MonoBehaviour, IPowerSink, IPowerSource, ISliderUIModel
 {
     [SerializeField] float _chargeRate;
     [SerializeField] float _capacity;
+    [SerializeField] float _startingCharge;
     float _currCharge;
 
     IPowerSource _source;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _currCharge = _startingCharge;
+    }
+
 
     public void OnConnect(IPowerSource source)
     {
@@ -44,11 +53,7 @@ public class Battery : MonoBehaviour, IPowerSink, IPowerSource, ISliderUIModel
     {
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _currCharge = 0;
-    }
+
 
     // Update is called once per frame
     void Update()

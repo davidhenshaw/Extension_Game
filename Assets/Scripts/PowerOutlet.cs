@@ -18,14 +18,13 @@ public class PowerOutlet : MonoBehaviour
             connectionPoint = transform;
     }
 
-    public void Connect(Plug plug)
+    public void ConnectPlug(Plug plug)
     {
         if (connectedPlug != null)
             return;
         else
         {
             connectedPlug = plug;
-            plug.connectedOutlet = this;
         }
 
 
@@ -38,7 +37,7 @@ public class PowerOutlet : MonoBehaviour
         joint.connectedAnchor = Vector2.zero;
     }
 
-    public void Disconnect()
+    public void DisconnectPlug()
     {
         Destroy(joint);
         connectedPlug = null;
