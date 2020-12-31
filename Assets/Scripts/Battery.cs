@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Battery : MonoBehaviour, IPowerSink
+public class Battery : MonoBehaviour, IPowerSink, ISliderUIModel
 {
     [SerializeField] float _chargeRate;
     [SerializeField] float _capacity;
@@ -20,6 +21,11 @@ public class Battery : MonoBehaviour, IPowerSink
         _source = null;
     }
 
+    public float GetSliderValue()
+    {
+        return _currCharge/_capacity;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +39,7 @@ public class Battery : MonoBehaviour, IPowerSink
         {
             _currCharge += _source.GetCharge(_chargeRate * Time.deltaTime);
             _currCharge = Mathf.Clamp(_currCharge, 0, _capacity);
+
 
             Debug.Log("Battery charge: " + _currCharge);
         }
