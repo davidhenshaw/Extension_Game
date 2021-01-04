@@ -2848,6 +2848,11 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[18].Y
       value: 79980472
       objectReference: {fileID: 0}
+    - target: {fileID: 5527244132808924949, guid: 5cc6d64f605a1de45974acacda8cc614,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5527244133289541148, guid: 5cc6d64f605a1de45974acacda8cc614,
         type: 3}
       propertyPath: m_RootOrder
