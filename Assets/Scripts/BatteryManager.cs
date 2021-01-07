@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BatteryManager : MonoBehaviour, IPowerSink
 {
     [SerializeField] float _powerDrawRate;
     [SerializeField] Battery _battery;
     bool _isWorking;
+
+    public event Action batteryDied;
 
     public void OnConnect(IPowerSource source)
     {
@@ -32,6 +35,7 @@ public class BatteryManager : MonoBehaviour, IPowerSink
         {
             Debug.Log("I'm out of battery!", this);
             _isWorking = false;
+            batteryDied?.Invoke();
         }
         else if(usableCharge > 0)
         {

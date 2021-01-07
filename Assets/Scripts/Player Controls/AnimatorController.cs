@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnimatorController : MonoBehaviour
 {
     public readonly string WALKING_BOOL = "isWalking";
+    public readonly string DEAD_BOOL = "isDead";
 
     Animator _animator;
     [SerializeField]

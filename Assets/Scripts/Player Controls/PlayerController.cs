@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
         aimDir = new Vector2(1, 1);
         _cord.Plug.pluggedIn += CreateJoint;
         _cord.Plug.disconnected += DestroyJoint;
+        GetComponent<BatteryManager>().batteryDied += Die;
     }
 
     // Update is called once per frame
@@ -80,6 +81,19 @@ public class PlayerController : MonoBehaviour
         Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         aimDir = (mouse - (Vector2)transform.position).normalized;
         Debug.DrawLine(mouse, transform.position);
+    }
+
+    void Die()
+    {
+        GetComponent<Animator>().SetBool("isDead", true);
+    }
+
+    public void Respawn()
+    {
+        var respawner = FindObjectOfType<respawner>();
+        respawner.Respawn();
+        GetComponent<Animator>().SetBool("isDead", false);
+        //Need to set battery level to starting level
     }
 
 }
