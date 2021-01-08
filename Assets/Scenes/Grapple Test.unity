@@ -658,7 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _segmentSpacing: 0.37
   _thickness: 0.2
-  _numSegments: 20
+  _numSegments: 13
   startPoint: {fileID: 0}
   endPoint: {fileID: 342631858}
   _precision: 50

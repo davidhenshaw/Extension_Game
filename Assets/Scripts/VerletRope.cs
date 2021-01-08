@@ -54,6 +54,10 @@ public class VerletRope : MonoBehaviour
             DrawRope();
             //DrawRopeAndPassToCollider();
         }
+        else
+        {
+            GenerateSegments(startPoint.position);
+        }
 
     }
 
