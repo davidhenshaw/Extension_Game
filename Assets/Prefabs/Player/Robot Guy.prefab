@@ -912,6 +912,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2143633336049957566, guid: 9e820dcf5d07a784fb620dc02709d36e,
+        type: 3}
+      propertyPath: m_ConnectedRigidBody
+      value: 
+      objectReference: {fileID: 504113029367166566}
     - target: {fileID: 3569785988999038342, guid: 9e820dcf5d07a784fb620dc02709d36e,
         type: 3}
       propertyPath: m_Name
@@ -1007,8 +1012,25 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
       value: 0.16342545
       objectReference: {fileID: 0}
+    - target: {fileID: 8418129585299934390, guid: 9e820dcf5d07a784fb620dc02709d36e,
+        type: 3}
+      propertyPath: m_ConnectedRigidBody
+      value: 
+      objectReference: {fileID: 504113029367166566}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e820dcf5d07a784fb620dc02709d36e, type: 3}
+--- !u!50 &504113029367166566 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 1987583176085727474, guid: 9e820dcf5d07a784fb620dc02709d36e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2119973313797332628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2764965485271169382 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4266185426089224178, guid: 9e820dcf5d07a784fb620dc02709d36e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2119973313797332628}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1001705918672162476 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1192730727107448888, guid: 9e820dcf5d07a784fb620dc02709d36e,
@@ -1021,9 +1043,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673e9afa747e2434cb8de40d748b56f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2764965485271169382 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4266185426089224178, guid: 9e820dcf5d07a784fb620dc02709d36e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2119973313797332628}
-  m_PrefabAsset: {fileID: 0}
