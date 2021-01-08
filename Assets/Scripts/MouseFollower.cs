@@ -8,6 +8,6 @@ public class MouseFollower : MonoBehaviour
     void Update()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = mousePos;
+        transform.position = new Vector3(mousePos.x, mousePos.y, 0);
     }
 }
