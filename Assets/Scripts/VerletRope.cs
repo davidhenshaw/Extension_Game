@@ -33,15 +33,20 @@ public class VerletRope : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        GenerateSegments(startPoint.position);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GenerateSegments(mousePos);
-        }
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    GenerateSegments(mousePos);
+        //}
 
         if(_numSegments == _segments.Count)
         {

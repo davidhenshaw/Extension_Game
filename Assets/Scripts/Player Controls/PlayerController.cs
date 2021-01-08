@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Cord _cord;
-    [SerializeField] float _cordLength;
+    [SerializeField] Ability _ability;
+    Cord _cord;
+    float _cordLength;
     Vector2 aimDir;
     DistanceJoint2D joint;
 
@@ -13,8 +14,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         aimDir = new Vector2(1, 1);
-        _cord.Plug.pluggedIn += CreateJoint;
-        _cord.Plug.disconnected += DestroyJoint;
+        //_cord.Plug.pluggedIn += CreateJoint;
+        //_cord.Plug.disconnected += DestroyJoint;
     }
 
     // Update is called once per frame
@@ -26,17 +27,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_cord.Plug == null)
-            return;
+        //if (_cord.Plug == null)
+        //    return;
 
-        _cord.Plug.pluggedIn += CreateJoint;
-        _cord.Plug.disconnected += DestroyJoint;
+        //_cord.Plug.pluggedIn += CreateJoint;
+        //_cord.Plug.disconnected += DestroyJoint;
     }
 
     private void OnDisable()
     {
-        _cord.Plug.pluggedIn -= CreateJoint;
-        _cord.Plug.disconnected -= DestroyJoint;
+        //_cord.Plug.pluggedIn -= CreateJoint;
+        //_cord.Plug.disconnected -= DestroyJoint;
     }
 
     void CreateJoint(Rigidbody2D rb)
@@ -64,17 +65,23 @@ public class PlayerController : MonoBehaviour
 
     void ReadInput()
     {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            if (_cord.IsRetracted)
-                _cord.Release();
-            else
-                _cord.Retract();
-        }
+        //if(Input.GetKeyDown(KeyCode.R))
+        //{
+        //    if (_cord.IsRetracted)
+        //        _cord.Release();
+        //    else
+        //        _cord.Retract();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.E))
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    _cord.EjectPlug(aimDir);
+        //}
+
+        if(Input.GetMouseButtonDown(0))
         {
-            _cord.EjectPlug(aimDir);
+            if(_ability != null)
+                _ability.DoAbility();
         }
 
         Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
