@@ -13,7 +13,7 @@ public class CordAbility : Ability
 
     bool _isEjected = false;
     bool _isRetracting = false;
-    DistanceJoint2D myJoint;
+    DistanceJoint2D joint;
 
     private void OnEnable()
     {
@@ -43,9 +43,11 @@ public class CordAbility : Ability
         }
         else
         {
-            Eject();
-
-            _isEjected = true;
+            if (!_isRetracting)
+            {
+                Eject();
+                _isEjected = true;
+            }
         }
     }
 
@@ -94,6 +96,7 @@ public class CordAbility : Ability
 
         //Make the plug object kinematic so it will stay where we put it;
         plug.GetComponent<Rigidbody2D>().isKinematic = true;
+        plug.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         plug.GetComponent<Collider2D>().enabled = false;
 
         //Disconnect the plug from any outlet it was connected to
@@ -111,26 +114,30 @@ public class CordAbility : Ability
         }
     }
 
-    void CreateJoint(Rigidbody2D rb)
+    void CancelMovePlug()
     {
-        if (myJoint != null)
+        StopAllCoroutines();
+    }
+
+    void CreateJoint(Rigidbody2D otherRb)
+    {
+        if (joint != null)  //If there's already a joint, don't make another one
             return;
 
-        myJoint = gameObject.AddComponent<DistanceJoint2D>();
-        myJoint.autoConfigureDistance = false;
-        myJoint.connectedBody = rb;
+        CancelMovePlug();
 
-        myJoint.autoConfigureDistance = false;
-        myJoint.distance = _maxRange;
-        myJoint.maxDistanceOnly = true;
+        joint = otherRb.gameObject.AddComponent<DistanceJoint2D>();
+        joint.autoConfigureDistance = false;
+        joint.connectedBody = this.GetComponent<Rigidbody2D>();
+        joint.distance = _maxRange;
+        joint.maxDistanceOnly = true;
     }
 
     void DestroyJoint(Rigidbody2D rb)
     {
-        if (myJoint == null)
+        if (joint == null)  //If there's no joint, don't do anything
             return;
 
-        myJoint = gameObject.GetComponent<DistanceJoint2D>();
-        Destroy(myJoint);
+        Destroy(joint);
     }
 }

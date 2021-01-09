@@ -1036,6 +1036,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plug
       objectReference: {fileID: 0}
+    - target: {fileID: 7880265620205269975, guid: 52e6835a4111da74a9befc562bd3636a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52e6835a4111da74a9befc562bd3636a, type: 3}
 --- !u!114 &6514554655319933613 stripped
