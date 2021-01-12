@@ -23,6 +23,7 @@ public class Plug : Conductor
         {
             disconnected?.Invoke(connectedOutlet.GetComponent<Rigidbody2D>());
             connectedOutlet.DisconnectPlug();
+            connectedOutlet = null;
         }
     }
 

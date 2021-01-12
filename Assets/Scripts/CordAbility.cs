@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Controls everything to do with launching the extension cord
 public class CordAbility : Ability
 {
     Vector3 endTarget;
     [SerializeField] float _maxRange;
     float _currLength;
     [SerializeField] float _ejectionSpeed;
+    [SerializeField] float _autoRetractTime = 1;
 
     [SerializeField] Plug plug;
     [SerializeField] VerletRope rope;
@@ -15,6 +17,9 @@ public class CordAbility : Ability
     bool _isEjected = false;
     bool _isRetracting = false;
     DistanceJoint2D joint;
+
+    Coroutine _autoRetract;
+    Coroutine _movePlug;
 
     [Tooltip("Sets the cord's max length to the current distance between the start and end point")]
     public bool dynamicShrinking = false;
@@ -56,6 +61,7 @@ public class CordAbility : Ability
     public void ResetCordLength()
     {
         _currLength = _maxRange;
+        rope.ResetSegments();
     }
 
     public override void DoAbility()
@@ -63,21 +69,36 @@ public class CordAbility : Ability
         if(_isEjected)
         {
             Retract();
-
-            _isEjected = false;
         }
         else
         {
-            if (!_isRetracting)
+            if (!_isRetracting) //Don't eject until you're done retracting
             {
                 Eject();
-                _isEjected = true;
             }
         }
     }
 
+    public void SetCordVisible(bool value)
+    {
+        var ropeRenderer = rope.GetComponent<LineRenderer>();
+        var plugRenderer = plug.GetComponent<SpriteRenderer>();
+        plugRenderer.enabled = value;
+        ropeRenderer.enabled = value;
+    }
+
     void Eject()
     {
+        _isEjected = true;
+
+        //Start the auto retract coroutine
+        if(_autoRetract != null)
+            StopCoroutine(_autoRetract);
+        _autoRetract = StartCoroutine(AutoRetract_co(_autoRetractTime));
+
+        //Make the cord visible
+        SetCordVisible(true);
+
         //Set the endTarget variable based on the mouse position and ability range
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
@@ -93,12 +114,24 @@ public class CordAbility : Ability
             endTarget = transform.position + (dir * dist);
         }
 
-        //Make the plug object dynamic so it can be "jointed" with other objects during its path
+        //Make the plug rigidbody dynamic so it can be "jointed" with other objects along its path
         plug.GetComponent<Rigidbody2D>().isKinematic = false;
         plug.GetComponent<Collider2D>().enabled = true;
 
         //Start moving the plug
         StartCoroutine(MovePlug_co(_ejectionSpeed));
+    }
+
+    void DynamicShrink()
+    {
+            //Get distance between start and end point of rope
+            float currDist = (rope.GetStartPoint() - rope.GetEndPoint()).magnitude;
+
+            //Replace joint max distance if current length is shorter than the max
+            joint.distance = Mathf.Min(joint.distance, currDist);
+
+            //Resize the verlet rope
+            rope.Resize(joint.distance);
     }
 
     // Moves the plug in a straight line towards the endTarget position
@@ -112,8 +145,26 @@ public class CordAbility : Ability
         _isRetracting = false;
     }
 
+    IEnumerator AutoRetract_co(float seconds)
+    {
+        float currTime = 0;
+
+        while(plug.connectedOutlet == null)
+        {
+            currTime += Time.deltaTime;
+
+            if (currTime >= seconds)
+            {
+                Retract();
+                break;
+            }
+
+            yield return null;
+        }
+    }
+
     // Moves the plug in a straight line towards the local transform (0,0,0) position, and makes it kinematic
-    // [TO BE IMPLEMENTED] Also tells the rope to reduce its number of nodes to remove rope slack
+    // Also tells the rope to reduce its number of nodes to remove rope slack
     void Retract()
     {
         _isRetracting = true;
@@ -126,8 +177,12 @@ public class CordAbility : Ability
 
         //Disconnect the plug from any outlet it was connected to
         plug.DisconnectOutlet();
+        ResetCordLength();
+        SetCordVisible(false);
 
         StartCoroutine(MovePlug_co(_ejectionSpeed));
+
+        _isEjected = false;
     }
 
     private void Update()
@@ -140,14 +195,10 @@ public class CordAbility : Ability
 
         if (dynamicShrinking && joint != null)
         {
-            //Get distance between start and end point of rope
-            float currDist = (rope.GetStartPoint() - rope.GetEndPoint()).magnitude;
-
-            //Replace joint max distance if current length is shorter than the max
-            joint.distance = Mathf.Min(joint.distance, currDist);
-
-            //TODO : Resize the verlet rope
+            DynamicShrink();
         }
+
+        //Automatically retract the cord if nothing was hit from the last eject
     }
 
     void CancelMovePlug()

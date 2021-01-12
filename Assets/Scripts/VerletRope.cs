@@ -11,16 +11,17 @@ public class VerletRope : MonoBehaviour
     ContactPoint2D[] _contacts;
 
 
-    [SerializeField] float _segmentSpacing = 0.25f;
+    [SerializeField] float _segmentSpacing = 0.1f;
     [SerializeField] float _thickness = 0.2f;
     [SerializeField] int _numSegments = 30;
+    [SerializeField] int _maxSegments = 30;
     public Transform startPoint;
     public Transform endPoint;
     [Space]
 
     [Tooltip("How many times the rope simulation applies physics constraints. More repetition is more accurate but also more costly")]
     [SerializeField] [Range(1, 100)] int _precision = 20;
-    [SerializeField] [Range(-10,0)] float _gravity;
+    [SerializeField] [Range(-10,0)] float _gravity = -0.9f;
     [SerializeField] [Range(0, 100)] float _impulseFactor = 0.5f;
 
     private void Awake()
@@ -61,6 +62,21 @@ public class VerletRope : MonoBehaviour
 
     }
 
+    public float GetMaxSegments()
+    {
+        return _maxSegments;
+    }
+
+    public float GetNumSegments()
+    {
+        return _numSegments;
+    }
+
+    public float GetSegmentSpacing()
+    {
+        return _segmentSpacing;
+    }
+
     public float GetLength()
     {
         return _segmentSpacing * _numSegments;
@@ -74,6 +90,35 @@ public class VerletRope : MonoBehaviour
     public Vector3 GetEndPoint()
     {
         return endPoint.position;
+    }
+
+    public void RemoveSegments(int numSegs)
+    {
+        //Delete the middle segment [numSegs] times
+        for(int i = 0; i < numSegs; i++)
+        {
+            int middle = _numSegments / 2;
+            _segments.RemoveAt(middle);
+            _numSegments -= 1;
+        }
+    }
+
+    public void ResetSegments()
+    {
+        if (_numSegments != _maxSegments)
+        {
+            _numSegments = _maxSegments;
+            GenerateSegments(startPoint.position);
+        }
+    }
+
+    public void Resize(float targetLength)
+    {
+        float diff = targetLength - this.GetLength();
+        int toDelete = Mathf.FloorToInt(diff / _segmentSpacing);
+
+        if (toDelete < 0)
+            RemoveSegments(Mathf.Abs(toDelete));
     }
 
     void DrawRope()

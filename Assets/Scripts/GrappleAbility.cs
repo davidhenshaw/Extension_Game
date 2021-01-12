@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// The Cord Ability is also required to use this ability
 [RequireComponent(typeof(Rigidbody2D))]
 public class GrappleAbility : Ability
 {
@@ -13,16 +14,17 @@ public class GrappleAbility : Ability
     bool isActive = false;
     Rigidbody2D myRigidbody;
     TargetJoint2D myJoint;
+    CordAbility cordAbility;
 
     private void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        cordAbility = GetComponent<CordAbility>();
     }
 
     public override void DoAbility()
     {
         isActive = !isActive;
-        var ca = GetComponent<CordAbility>();
 
         if(isActive)
         {
@@ -43,8 +45,7 @@ public class GrappleAbility : Ability
         myJoint.target = followTarget.position;
         myJoint.maxForce = maxForce;
 
-        var ca = GetComponent<CordAbility>();
-        ca.dynamicShrinking = true;
+        cordAbility.dynamicShrinking = true;
     }
 
     private void DestroyJoint()
@@ -55,8 +56,7 @@ public class GrappleAbility : Ability
         isActive = false;
         Destroy(myJoint);
 
-        var ca = GetComponent<CordAbility>();
-        ca.dynamicShrinking = false;
+        cordAbility.dynamicShrinking = false;
     }
 
     private Vector3 GetFinalPosition()
