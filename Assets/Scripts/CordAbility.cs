@@ -16,6 +16,9 @@ public class CordAbility : Ability
     bool _isRetracting = false;
     DistanceJoint2D joint;
 
+    [Tooltip("Sets the cord's max length to the current distance between the start and end point")]
+    public bool dynamicShrinking = false;
+
     private void OnEnable()
     {
         plug.pluggedIn += CreateJoint;
@@ -133,6 +136,17 @@ public class CordAbility : Ability
         if(_isRetracting)
         {
             endTarget = transform.localToWorldMatrix.MultiplyPoint(Vector3.zero);
+        }
+
+        if (dynamicShrinking)
+        {
+            //Get distance between start and end point of rope
+            float currDist = (rope.GetStartPoint() - rope.GetEndPoint()).magnitude;
+
+            //Replace joint max distance if current length is shorter than the max
+            joint.distance = Mathf.Min(joint.distance, currDist);
+
+            //Resize the verlet rope
         }
     }
 

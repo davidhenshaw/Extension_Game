@@ -22,6 +22,7 @@ public class GrappleAbility : Ability
     public override void DoAbility()
     {
         isActive = !isActive;
+        var ca = GetComponent<CordAbility>();
 
         if(isActive)
         {
@@ -41,6 +42,9 @@ public class GrappleAbility : Ability
         myJoint = gameObject.AddComponent<TargetJoint2D>();
         myJoint.target = followTarget.position;
         myJoint.maxForce = maxForce;
+
+        var ca = GetComponent<CordAbility>();
+        ca.dynamicShrinking = true;
     }
 
     private void DestroyJoint()
@@ -50,6 +54,9 @@ public class GrappleAbility : Ability
 
         isActive = false;
         Destroy(myJoint);
+
+        var ca = GetComponent<CordAbility>();
+        ca.dynamicShrinking = false;
     }
 
     private Vector3 GetFinalPosition()
@@ -68,13 +75,10 @@ public class GrappleAbility : Ability
 
             Vector2 flattenedPos = transform.position;
 
-
+            //When you get close to the target point, remove the TargetJoint
             if (Vector2.Distance(myJoint.target, flattenedPos) < _threshold)
                 DestroyJoint();
         }
-
-
-
     }
 
 }

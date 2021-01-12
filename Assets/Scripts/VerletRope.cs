@@ -66,6 +66,16 @@ public class VerletRope : MonoBehaviour
         return _segmentSpacing * _numSegments;
     }
 
+    public Vector3 GetStartPoint()
+    {
+        return startPoint.position;
+    }
+
+    public Vector3 GetEndPoint()
+    {
+        return endPoint.position;
+    }
+
     void DrawRope()
     {
         lineRenderer.positionCount = _numSegments;
