@@ -138,7 +138,7 @@ public class CordAbility : Ability
             endTarget = transform.localToWorldMatrix.MultiplyPoint(Vector3.zero);
         }
 
-        if (dynamicShrinking)
+        if (dynamicShrinking && joint != null)
         {
             //Get distance between start and end point of rope
             float currDist = (rope.GetStartPoint() - rope.GetEndPoint()).magnitude;
@@ -146,7 +146,7 @@ public class CordAbility : Ability
             //Replace joint max distance if current length is shorter than the max
             joint.distance = Mathf.Min(joint.distance, currDist);
 
-            //Resize the verlet rope
+            //TODO : Resize the verlet rope
         }
     }
 

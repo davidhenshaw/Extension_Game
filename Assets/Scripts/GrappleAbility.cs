@@ -73,10 +73,8 @@ public class GrappleAbility : Ability
         {
             myJoint.target = GetFinalPosition();
 
-            Vector2 flattenedPos = transform.position;
-
             //When you get close to the target point, remove the TargetJoint
-            if (Vector2.Distance(myJoint.target, flattenedPos) < _threshold)
+            if (Vector2.Distance(myJoint.target, transform.position) < _threshold)
                 DestroyJoint();
         }
     }
