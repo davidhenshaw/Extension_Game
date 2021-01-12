@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PowerOutlet : MonoBehaviour
@@ -9,6 +9,10 @@ public class PowerOutlet : MonoBehaviour
     FixedJoint2D joint;
     Plug connectedPlug;
     [SerializeField] Transform connectionPoint;
+
+    public UnityEvent OnPlugConnect;
+    public UnityEvent OnPlugDisconnect;
+
 
     private void Awake()
     {
@@ -35,12 +39,15 @@ public class PowerOutlet : MonoBehaviour
         joint.connectedBody = endRB;
         joint.anchor = connectionPoint.localPosition;
         joint.connectedAnchor = Vector2.zero;
+
+        OnPlugConnect?.Invoke();
     }
 
     public void DisconnectPlug()
     {
         Destroy(joint);
         connectedPlug = null;
+        OnPlugDisconnect?.Invoke();
     }
 
 }
