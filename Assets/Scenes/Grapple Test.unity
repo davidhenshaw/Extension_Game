@@ -10726,6 +10726,27 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1318421030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1414368786966609724, guid: 202f9bb383c8fb54ca880df22764a2d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1669541936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1318421042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318421030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a2d5d88ab4fc4e4c9904788f61e1b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTarget: {fileID: 2092029877}
+  maxForce: 50
+  _spacing: 1.5
 --- !u!1 &1365335842
 GameObject:
   m_ObjectHideFlags: 3
@@ -10954,6 +10975,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot Guy
       objectReference: {fileID: 0}
+    - target: {fileID: 5339694376548554482, guid: 202f9bb383c8fb54ca880df22764a2d3,
+        type: 3}
+      propertyPath: _ability2
+      value: 
+      objectReference: {fileID: 1318421042}
     - target: {fileID: 5985195883479101759, guid: 202f9bb383c8fb54ca880df22764a2d3,
         type: 3}
       propertyPath: _gravity
@@ -11150,3 +11176,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363ef5435816c43438533fcfd7de0b2b, type: 3}
+--- !u!4 &2092029877 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5522869320429933662, guid: 202f9bb383c8fb54ca880df22764a2d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1669541936}
+  m_PrefabAsset: {fileID: 0}

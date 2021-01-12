@@ -61,6 +61,11 @@ public class VerletRope : MonoBehaviour
 
     }
 
+    public float GetLength()
+    {
+        return _segmentSpacing * _numSegments;
+    }
+
     void DrawRope()
     {
         lineRenderer.positionCount = _numSegments;

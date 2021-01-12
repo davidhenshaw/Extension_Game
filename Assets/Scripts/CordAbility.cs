@@ -6,6 +6,7 @@ public class CordAbility : Ability
 {
     Vector3 endTarget;
     [SerializeField] float _maxRange;
+    float _currLength;
     [SerializeField] float _ejectionSpeed;
 
     [SerializeField] Plug plug;
@@ -29,8 +30,29 @@ public class CordAbility : Ability
 
     private void Awake()
     {
+        _currLength = _maxRange;
+
         rope.startPoint = this.transform;
         rope.endPoint = plug.transform;
+    }
+
+    public float GetMaxRange()
+    {
+        return _maxRange;
+    }
+
+    public void SetCordLength(float value)
+    {
+        _currLength = Mathf.Clamp(value, 0, _maxRange);
+
+        //Resize the joint's max distance
+        joint.distance = _currLength;
+        //Resize the VerletRope
+    }
+
+    public void ResetCordLength()
+    {
+        _currLength = _maxRange;
     }
 
     public override void DoAbility()

@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Ability _ability;
+    [SerializeField] Ability _ability1;
+    [SerializeField] Ability _ability2;
     Cord _cord;
     float _cordLength;
     Vector2 aimDir;
     DistanceJoint2D joint;
+
+    private void Awake()
+    {
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -40,28 +46,28 @@ public class PlayerController : MonoBehaviour
         //_cord.Plug.disconnected -= DestroyJoint;
     }
 
-    void CreateJoint(Rigidbody2D rb)
-    {
-        if (joint != null)
-            return;
+    //void CreateJoint(Rigidbody2D rb)
+    //{
+    //    if (joint != null)
+    //        return;
 
-        joint = gameObject.AddComponent<DistanceJoint2D>();
-        joint.autoConfigureDistance = false;
-        joint.connectedBody = rb;
+    //    joint = gameObject.AddComponent<DistanceJoint2D>();
+    //    joint.autoConfigureDistance = false;
+    //    joint.connectedBody = rb;
 
-        joint.autoConfigureDistance = false;
-        joint.distance = _cordLength;
-        joint.maxDistanceOnly = true;
-    }
+    //    joint.autoConfigureDistance = false;
+    //    joint.distance = _cordLength;
+    //    joint.maxDistanceOnly = true;
+    //}
 
-    void DestroyJoint(Rigidbody2D rb)
-    {
-        if (joint == null)
-            return;
+    //void DestroyJoint(Rigidbody2D rb)
+    //{
+    //    if (joint == null)
+    //        return;
 
-        joint = gameObject.GetComponent<DistanceJoint2D>();
-        Destroy(joint);
-    }
+    //    joint = gameObject.GetComponent<DistanceJoint2D>();
+    //    Destroy(joint);
+    //}
 
     void ReadInput()
     {
@@ -78,10 +84,16 @@ public class PlayerController : MonoBehaviour
         //    _cord.EjectPlug(aimDir);
         //}
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0))//Left click
         {
-            if(_ability != null)
-                _ability.DoAbility();
+            if(_ability1 != null)
+                _ability1.DoAbility();
+        }
+
+        if(Input.GetMouseButtonDown(1)) //Right click
+        {
+            if (_ability2 != null)
+                _ability2.DoAbility();
         }
 
         Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
