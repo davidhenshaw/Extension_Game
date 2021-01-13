@@ -5,13 +5,14 @@ using UOP1.StateMachine.ScriptableObjects;
 [CreateAssetMenu(fileName = "YVelocityLessThan", menuName = "State Machines/Conditions/YVelocityLessThan")]
 public class YVelocityLessThanSO : StateConditionSO
 {
+    [SerializeField] bool absoluteValue;
     [SerializeField] float threshold;
-
-    protected override Condition CreateCondition() => new YVelocityLessThan(threshold);
+    protected override Condition CreateCondition() => new YVelocityLessThan(threshold, absoluteValue);
 }
 
 public class YVelocityLessThan : Condition
 {
+    bool absoluteValue;
     float threshold;
     MoveController moveCtrl;
 
@@ -20,9 +21,10 @@ public class YVelocityLessThan : Condition
 
     }
 
-    public YVelocityLessThan(float v)
+    public YVelocityLessThan(float v, bool abs)
     {
         threshold = v;
+        absoluteValue = abs;
     }
 
     public override void Awake(StateMachine stateMachine)
@@ -32,7 +34,9 @@ public class YVelocityLessThan : Condition
 
     protected override bool Statement()
     {
-        return moveCtrl.GetVelocity().y < threshold;
+        float yVel = absoluteValue ? Mathf.Abs(moveCtrl.GetVelocity().y) : moveCtrl.GetVelocity().y;
+
+        return yVel < threshold;
     }
 
     // public override void OnStateEnter()

@@ -192,12 +192,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1242721701}
     - target: {fileID: 9104992159946044896, guid: 14480faa8d515d04696d5930aadaefa6,
         type: 3}
       propertyPath: m_AnimatedTarget
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1242721700}
     - target: {fileID: 9104992159946044896, guid: 14480faa8d515d04696d5930aadaefa6,
         type: 3}
       propertyPath: m_ParentHash.Array.size
@@ -236,12 +236,12 @@ PrefabInstance:
     - target: {fileID: 9104992161783383112, guid: 14480faa8d515d04696d5930aadaefa6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9200537
+      value: -0.9200536
       objectReference: {fileID: 0}
     - target: {fileID: 9104992161783383113, guid: 14480faa8d515d04696d5930aadaefa6,
         type: 3}
       propertyPath: orthographic size
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14480faa8d515d04696d5930aadaefa6, type: 3}
@@ -314,6 +314,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1adf9cb792d3f874eb8836e9039e38b8, type: 3}
+--- !u!95 &1242721700 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1414368786966609725, guid: 202f9bb383c8fb54ca880df22764a2d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720119547}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1242721701 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1414368786966609722, guid: 202f9bb383c8fb54ca880df22764a2d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720119547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1260698061
 PrefabInstance:
   m_ObjectHideFlags: 0
