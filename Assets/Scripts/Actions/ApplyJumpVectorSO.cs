@@ -30,6 +30,11 @@ public class ApplyJumpVector : StateAction
 		
 	public override void OnUpdate()
 	{
+        if(Input.GetButtonDown("Jump"))
+        {
+            moveCtrl.ApplyForce(jump);
+        }
+
         if(Input.GetButtonUp("Jump"))
         {
             //dampen vertical velocity
@@ -42,7 +47,7 @@ public class ApplyJumpVector : StateAction
 
     public override void OnStateEnter()
     {
-        moveCtrl.ApplyForce(jump);
+
     }
 
     // public override void OnStateExit()

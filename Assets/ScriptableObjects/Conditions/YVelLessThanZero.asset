@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85c3e278f75c0ae47806aad8aec9f625, type: 3}
-  m_Name: YVelocityIsSmall
+  m_Script: {fileID: 11500000, guid: 996185f77b82b5c4b9159205e1f4f3c8, type: 3}
+  m_Name: YVelLessThanZero
   m_EditorClassIdentifier: 
   cacheResult: 1
-  absoluteValue: 1
-  threshold: 0.01
+  absoluteValue: 0
+  compareType: 0
+  threshold: 0
