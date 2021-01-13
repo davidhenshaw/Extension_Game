@@ -5,13 +5,21 @@ using UOP1.StateMachine.ScriptableObjects;
 [CreateAssetMenu(fileName = "IsGrounded", menuName = "State Machines/Conditions/Is Grounded")]
 public class IsGroundedSO : StateConditionSO
 {
-	protected override Condition CreateCondition() => new IsGrounded();
+    [SerializeField] LayerMask walkableLayers;
+	protected override Condition CreateCondition() => new IsGrounded(walkableLayers);
+
+
 }
 
 public class IsGrounded : Condition
 {
     Collider2D groundCollider;
-    int jumpableLayers = LayerMask.GetMask("Ground"); //The layers that the player can jump from
+    int walkableLayers;
+
+    public IsGrounded(LayerMask layerMask)
+    {
+        walkableLayers = layerMask;
+    }
 
 	public override void Awake(StateMachine stateMachine)
 	{
@@ -20,7 +28,7 @@ public class IsGrounded : Condition
 		
 	protected override bool Statement()
 	{
-		return groundCollider.IsTouchingLayers(jumpableLayers);
+		return groundCollider.IsTouchingLayers(walkableLayers);
 	}
 	
 	// public override void OnStateEnter()
