@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85c3e278f75c0ae47806aad8aec9f625, type: 3}
-  m_Name: YVelocityLessThan
+  m_Script: {fileID: 11500000, guid: e0a7a236168d0be4085f2da3f61e9bab, type: 3}
+  m_Name: DampJumpVector
   m_EditorClassIdentifier: 
-  cacheResult: 1
-  threshold: 0
+  _jumpForce: 0
+  _jumpDamp: 0

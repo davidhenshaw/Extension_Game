@@ -133,8 +133,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.007221222
-        value: 0.1828804
+        time: 0.0036087036
+        value: 0.16342545
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -173,8 +173,8 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 19
-    numCapVertices: 8
+    numCornerVertices: 0
+    numCapVertices: 0
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
@@ -199,8 +199,9 @@ MonoBehaviour:
   plugPrefab: {fileID: 3639432505852102934, guid: 52e6835a4111da74a9befc562bd3636a,
     type: 3}
   chainSpacing: 0.3
-  ejectionForce: 300
-  numLinks: 12
+  ejectionForce: 400
+  numLinks: 13
+  resetLinkTime: 0.18
 --- !u!50 &1987583176085727474
 Rigidbody2D:
   serializedVersion: 4
@@ -257,7 +258,7 @@ PrefabInstance:
     - target: {fileID: 3639432505852102929, guid: f69be43aa3969364b83b175c6a923da6,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3639432505852102929, guid: f69be43aa3969364b83b175c6a923da6,
         type: 3}
@@ -272,7 +273,7 @@ PrefabInstance:
     - target: {fileID: 3639432505852102929, guid: f69be43aa3969364b83b175c6a923da6,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3639432505852102929, guid: f69be43aa3969364b83b175c6a923da6,
         type: 3}
@@ -287,12 +288,17 @@ PrefabInstance:
     - target: {fileID: 3639432505852102929, guid: f69be43aa3969364b83b175c6a923da6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639432505852102931, guid: f69be43aa3969364b83b175c6a923da6,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3639432505852102934, guid: f69be43aa3969364b83b175c6a923da6,
         type: 3}
       propertyPath: m_Name
-      value: Link
+      value: Hook
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f69be43aa3969364b83b175c6a923da6, type: 3}

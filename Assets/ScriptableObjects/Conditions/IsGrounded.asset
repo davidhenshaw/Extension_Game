@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: IsGrounded
   m_EditorClassIdentifier: 
   cacheResult: 1
+  walkableLayers:
+    serializedVersion: 2
+    m_Bits: 256
