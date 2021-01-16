@@ -31,7 +31,7 @@ public class HasLandedOnLayer : Condition
         prev = curr;
         curr = groundCollider.IsTouchingLayers(walkableLayers);
 
-        return curr && !prev;   //return true if you were previously touching ground but currently are not
+        return curr && !prev;   //return true if you are currently touching ground but previously were not
     }
 
     // public override void OnStateEnter()
