@@ -765,4 +765,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e178c099b6c084d9948d4b39fc7dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 3.5
+  sensitivity: 5
