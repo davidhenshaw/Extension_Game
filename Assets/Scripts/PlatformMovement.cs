@@ -6,6 +6,10 @@ public class PlatformMovement : MonoBehaviour
 {
     public GameObject waypointGroup;
     [SerializeField] float _moveSpeed = 2f;
+
+    public bool loop;
+    private bool loopingFwd = true;
+
     Waypoint[] _waypoints;
     int _index = 0;
     Waypoint _currTarget;
@@ -18,16 +22,29 @@ public class PlatformMovement : MonoBehaviour
         }
     }
 
-
     Waypoint GetNextWaypoint()
     {
-        if (_index < _waypoints.Length - 1)
+        int increment = loopingFwd ? 1 : -1;
+        int next = _index + increment;
+        bool nextInBounds = next >= 0 && next < _waypoints.Length;
+
+        if (nextInBounds)
         {
-            _index += 1;
+            _index = next;
             return _waypoints[_index];
         }
         else
-            return null;
+        {
+            if (loop)
+            {
+                loopingFwd = !loopingFwd;
+
+                return GetNextWaypoint();
+            }
+            else
+                return null;
+
+        }
     }
 
     void MoveTowardWaypoint()
