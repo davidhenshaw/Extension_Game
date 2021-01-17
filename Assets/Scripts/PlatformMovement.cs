@@ -13,6 +13,7 @@ public class PlatformMovement : MonoBehaviour
     Waypoint[] _waypoints;
     int _index = 0;
     Waypoint _currTarget;
+    private bool waitTimePassed = false;
 
     private void Awake()
     {
@@ -20,6 +21,8 @@ public class PlatformMovement : MonoBehaviour
         {
             _waypoints = waypointGroup.GetComponentsInChildren<Waypoint>();
         }
+        //Manually set the first target
+        _currTarget = _waypoints[0];
     }
 
     Waypoint GetNextWaypoint()
@@ -47,35 +50,72 @@ public class PlatformMovement : MonoBehaviour
         }
     }
 
+    IEnumerator Wait_co(float time)
+    {
+        yield return new WaitForSeconds(time);
+        waitTimePassed = true;
+    }
+
     void MoveTowardWaypoint()
     {
         transform.position = Vector3.MoveTowards(transform.position, _currTarget.transform.position, Time.deltaTime * _moveSpeed);
 
-        if(transform.position == _currTarget.transform.position)
-        {
-            _currTarget = null;
-        }
+        if(HaveArrived())
+            StartCoroutine(Wait_co(_currTarget.waitTime));
+    }
+
+    bool HaveArrived()
+    {
+        return transform.position == _currTarget.transform.position;
     }
 
     private void Start()
     {
+        //Teleport to the first waypoint
         if(_waypoints[0] != null)
         {
             transform.position = _waypoints[0].transform.position;
         }
+
+        MoveTowardWaypoint();
     }
 
     private void Update()
     {
-        //if no waypoint, get the next waypoint
-        if(_currTarget == null)
+        if(HaveArrived())
         {
-            _currTarget = GetNextWaypoint();
+            if(waitTimePassed)
+            {
+                _currTarget = GetNextWaypoint();
+                waitTimePassed = false;
+            }
         }
         else
         {
             MoveTowardWaypoint();
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (waypointGroup == null)
+            return;
+
+        if (_waypoints != null)
+        {
+            for(int i = 0; i < _waypoints.Length - 1; i++)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(_waypoints[i].transform.position, _waypoints[i + 1].transform.position);
+            }
+        }
+        else
+        {
+            _waypoints = waypointGroup.GetComponentsInChildren<Waypoint>();
+        }
+
+
+
     }
 
 }
