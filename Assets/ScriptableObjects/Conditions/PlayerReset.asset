@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35432205b9a6a374bbbfe6b7cac92179, type: 3}
-  m_Name: Dead
+  m_Script: {fileID: 11500000, guid: 8a145bc05a9918344bf5ae2755411426, type: 3}
+  m_Name: PlayerReset
   m_EditorClassIdentifier: 
-  _actions:
-  - {fileID: 11400000, guid: 217cc79e7654c484b9774e3f1394f964, type: 2}
+  cacheResult: 1

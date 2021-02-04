@@ -19,6 +19,12 @@ public class Battery : MonoBehaviour, IPowerSink, IPowerSource, ISliderUIModel
         _currCharge = _startingCharge;
     }
 
+    public void Reset()
+    {
+        _currCharge = _startingCharge;
+        _source = null;
+    }
+
     public void OnConnect(IPowerSource source)
     {
         _source = source;

@@ -5,6 +5,9 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public event Action DeathAnimFinished;
+    public event Action PlayerReset;
+
     [SerializeField] Ability _ability1;
     [SerializeField] Ability _ability2;
     Cord _cord;
@@ -43,4 +46,16 @@ public class PlayerController : MonoBehaviour
         Debug.DrawLine(mouse, transform.position);
     }
 
+    public void Reset()
+    {
+        var battery = GetComponentInChildren<Battery>();
+        battery.Reset();
+
+        PlayerReset?.Invoke();
+    }
+
+    public void OnDeathAnimFinished()
+    {
+        DeathAnimFinished?.Invoke();
+    }
 }

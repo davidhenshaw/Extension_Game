@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35432205b9a6a374bbbfe6b7cac92179, type: 3}
-  m_Name: Dead
+  m_Script: {fileID: 11500000, guid: b2773604762ce664694538ee33f573c9, type: 3}
+  m_Name: SetDeathAnimation
   m_EditorClassIdentifier: 
-  _actions:
-  - {fileID: 11400000, guid: 217cc79e7654c484b9774e3f1394f964, type: 2}
+  variable: isDead
+  setTo: 1
+  toggleOnExit: 0
