@@ -19,7 +19,6 @@ public class Battery : MonoBehaviour, IPowerSink, IPowerSource, ISliderUIModel
         _currCharge = _startingCharge;
     }
 
-
     public void OnConnect(IPowerSource source)
     {
         _source = source;
@@ -59,8 +58,6 @@ public class Battery : MonoBehaviour, IPowerSink, IPowerSource, ISliderUIModel
     public void OnDisconnect(IPowerSink sink)
     {
     }
-
-
 
     // Update is called once per frame
     void Update()

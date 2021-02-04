@@ -13,7 +13,6 @@ public class PowerOutlet : MonoBehaviour
     public UnityEvent OnPlugConnect;
     public UnityEvent OnPlugDisconnect;
 
-
     private void Awake()
     {
         _myRigidbody = GetComponent<Rigidbody2D>();
