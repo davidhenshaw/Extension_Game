@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PowerListener : MonoBehaviour, IPowerSink
+public class PowerSink : MonoBehaviour, IPowerSink
 {
     [SerializeField] float powerDraw = 10f;
 

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1369811665}
   - component: {fileID: 1369811666}
+  - component: {fileID: 9050672971625358588}
+  - component: {fileID: 4475466411994414267}
   m_Layer: 10
   m_Name: Built-in Battery
   m_TagString: Untagged
@@ -48,6 +50,39 @@ MonoBehaviour:
   _chargeRate: 50
   _capacity: 100
   _startingCharge: 100
+--- !u!114 &9050672971625358588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369811664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b96fecee6ae36b042bf619084f8b88c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerSource: {fileID: 1369811666}
+  powerSink: {fileID: 4475466411994414267}
+--- !u!114 &4475466411994414267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369811664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e8e17f102fe3348a4a1ebe19691645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerDraw: 5
+  OnPowerReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPowerLost:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1414368786966609724
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +100,6 @@ GameObject:
   - component: {fileID: 1414368786966609719}
   - component: {fileID: 1414368786966609723}
   - component: {fileID: 250906893931362506}
-  - component: {fileID: 333078624}
   - component: {fileID: 2409758183906111513}
   m_Layer: 10
   m_Name: Robot Guy
@@ -218,20 +252,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.048595905, y: -0.17278504}
   m_Size: {x: 0.5971918, y: 1.3455701}
   m_Direction: 0
---- !u!114 &333078624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414368786966609724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6be5d75915f02e4eb8ed896fa35435f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _powerDrawRate: 10
-  _battery: {fileID: 1369811666}
 --- !u!114 &2409758183906111513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,6 +989,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bce7c0e1b487164e9b3ab2771c05435, type: 3}
+--- !u!4 &5985195883479101729 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4941498726620911798, guid: 4bce7c0e1b487164e9b3ab2771c05435,
+    type: 3}
+  m_PrefabInstance: {fileID: 1701257955614009751}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5985195883479101759 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4941498726620911784, guid: 4bce7c0e1b487164e9b3ab2771c05435,
@@ -981,12 +1007,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27b4ba50604db54b87986fe3ef99bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &5985195883479101729 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4941498726620911798, guid: 4bce7c0e1b487164e9b3ab2771c05435,
-    type: 3}
-  m_PrefabInstance: {fileID: 1701257955614009751}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9089654889146096975
 PrefabInstance:
   m_ObjectHideFlags: 0
