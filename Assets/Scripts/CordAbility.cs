@@ -149,7 +149,7 @@ public class CordAbility : Ability
     {
         float currTime = 0;
 
-        while(plug.connectedOutlet == null)
+        while( !plug.IsConnected() )
         {
             currTime += Time.deltaTime;
 
