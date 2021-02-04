@@ -70,7 +70,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1012708079
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -142,9 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27b4ba50604db54b87986fe3ef99bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _segmentSpacing: 0.37
+  _segmentSpacing: 0.1
   _thickness: 0.2
-  _numSegments: 13
+  _numSegments: 40
+  _maxSegments: 40
   startPoint: {fileID: 0}
   endPoint: {fileID: 0}
   _precision: 50
