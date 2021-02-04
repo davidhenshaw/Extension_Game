@@ -12,12 +12,6 @@ public class Plug : Conductor
     IPowerSink _sink;
     IPowerSource _source;
 
-    private void Start()
-    {
-        _sink = GetComponentInParent<IPowerSink>();
-        _source = null;
-    }
-
     public void DisconnectOutlet()
     {
         if(_sink != null && _source != null)
@@ -43,31 +37,24 @@ public class Plug : Conductor
         /* Me(Sink) -----> Other(source)*/
         if (mySink != null && otherSource != null)
         {
-            base.ConnectSourceToSink(mySink, otherSource);
             _sink = mySink;
             _source = otherSource;
-
-            outlet.ConnectPlug(this);
-            connectedOutlet = outlet;
-
-            pluggedIn?.Invoke(outlet.GetComponent<Rigidbody2D>());
-            return;
         }
-
+        else
         // Other wants to draw power from me
         /* Me(Source) <----- Other(sink)*/
         if (mySource != null && otherSink != null)
         {
-            base.ConnectSourceToSink(otherSink, mySource);
             _sink = otherSink;
             _source = mySource;
-
-            outlet.ConnectPlug(this);
-            connectedOutlet = outlet;
-
-            pluggedIn?.Invoke(outlet.GetComponent<Rigidbody2D>());
-            return;
         }
+
+        base.ConnectSinkToSource(_sink, _source);
+
+        outlet.ConnectPlug(this);
+        connectedOutlet = outlet;
+
+        pluggedIn?.Invoke(outlet.GetComponent<Rigidbody2D>());
     }
 
     public bool IsConnected()

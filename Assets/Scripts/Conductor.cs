@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Conductor : MonoBehaviour
 {
-    public virtual void ConnectSourceToSink(IPowerSink sink, IPowerSource source)
+    public virtual void ConnectSinkToSource(IPowerSink sink, IPowerSource source)
     {
         source.OnConnect(sink);
         sink.OnConnect(source);
