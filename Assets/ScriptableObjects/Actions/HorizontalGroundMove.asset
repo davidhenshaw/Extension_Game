@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: HorizontalGroundMove
   m_EditorClassIdentifier: 
   _acceleration: 10
-  _deceleration: -12
+  _deceleration: -5
   _maxVel: 5

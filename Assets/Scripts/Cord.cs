@@ -53,7 +53,7 @@ public class Cord : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Retract();
         //GenerateCord();
     }
 
@@ -219,9 +219,9 @@ public class Cord : MonoBehaviour
                 link = Instantiate(plugPrefab, transform);
             }
 
-            HingeJoint2D joint = link.GetComponent<HingeJoint2D>();
+            RelativeJoint2D joint = link.GetComponent<RelativeJoint2D>();
             joint.connectedBody = previousRB;
-            joint.connectedAnchor = new Vector2(0f, -chainSpacing);
+            //joint.connectedAnchor = new Vector2(0f, -chainSpacing);
             previousRB = link.GetComponent<Rigidbody2D>();
 
             _links[i+1] = link.transform;

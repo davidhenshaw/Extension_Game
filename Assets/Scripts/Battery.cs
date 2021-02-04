@@ -19,7 +19,6 @@ public class Battery : MonoBehaviour, IPowerSink, IPowerSource, ISliderUIModel
         _currCharge = _startingCharge;
     }
 
-
     public void OnConnect(IPowerSource source)
     {
         _source = source;
@@ -37,12 +36,19 @@ public class Battery : MonoBehaviour, IPowerSink, IPowerSource, ISliderUIModel
 
     public float RequestCharge(float requested)
     {
-        float prevCharge = _currCharge;
+        requested = Mathf.Abs(requested);
 
-        _currCharge -= Mathf.Abs(requested);
-        _currCharge = Mathf.Clamp(_currCharge, 0, _capacity);
-
-        return prevCharge - _currCharge;
+        if(_currCharge > requested)
+        {
+            _currCharge -= requested;
+            return requested;
+        }
+        else
+        {
+            var whatsLeft = _currCharge;
+            _currCharge = 0;
+            return whatsLeft;
+        }
     }
 
     public void OnConnect(IPowerSink sink)
@@ -52,8 +58,6 @@ public class Battery : MonoBehaviour, IPowerSink, IPowerSource, ISliderUIModel
     public void OnDisconnect(IPowerSink sink)
     {
     }
-
-
 
     // Update is called once per frame
     void Update()

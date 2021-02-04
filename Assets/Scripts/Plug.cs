@@ -5,40 +5,56 @@ using UnityEngine;
 
 public class Plug : Conductor
 {
-    public PowerOutlet connectedOutlet;
+    PowerOutlet connectedOutlet;
     public event Action<Rigidbody2D> pluggedIn;
     public event Action<Rigidbody2D> disconnected;
 
-    private void Start()
-    {
-        _sink = GetComponentInParent<IPowerSink>();
-        _source = null;
-    }
+    IPowerSink _sink;
+    IPowerSource _source;
 
-    public override void DisconnectOutlet()
+    public void DisconnectOutlet()
     {
-        base.DisconnectOutlet();
+        if(_sink != null && _source != null)
+            base.DisconnectSinkFromSource(_sink, _source);
 
         if(connectedOutlet != null)
         {
             disconnected?.Invoke(connectedOutlet.GetComponent<Rigidbody2D>());
             connectedOutlet.DisconnectPlug();
+            connectedOutlet = null;
         }
     }
 
     public void ConnectOutlet(PowerOutlet outlet)
     {
-        var powerSource = outlet.GetComponent<IPowerSource>();
+        var mySink = GetComponentInParent<IPowerSink>();
+        var otherSource = outlet.GetComponent<IPowerSource>();
 
-        if (powerSource != null)
+        var mySource = GetComponentInParent<IPowerSource>();
+        var otherSink = outlet.GetComponent<IPowerSink>();
+
+        // I want to draw power from other
+        /* Me(Sink) -----> Other(source)*/
+        if (mySink != null && otherSource != null)
         {
-            base.ConnectSourceToSink(powerSource);
-
-            outlet.ConnectPlug(this);
-            connectedOutlet = outlet;
-
-            pluggedIn?.Invoke(outlet.GetComponent<Rigidbody2D>());
+            _sink = mySink;
+            _source = otherSource;
         }
+        else
+        // Other wants to draw power from me
+        /* Me(Source) <----- Other(sink)*/
+        if (mySource != null && otherSink != null)
+        {
+            _sink = otherSink;
+            _source = mySource;
+        }
+
+        base.ConnectSinkToSource(_sink, _source);
+
+        outlet.ConnectPlug(this);
+        connectedOutlet = outlet;
+
+        pluggedIn?.Invoke(outlet.GetComponent<Rigidbody2D>());
     }
 
     public bool IsConnected()

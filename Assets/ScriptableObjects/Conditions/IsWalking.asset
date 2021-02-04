@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: IsWalking
   m_EditorClassIdentifier: 
   cacheResult: 1
+  minWalkingVelocity: 1.5
